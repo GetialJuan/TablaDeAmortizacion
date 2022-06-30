@@ -27,6 +27,10 @@ public class EmpresaBancaria {
     
     public void setMonto(){
         Scanner sc = new Scanner(System.in);
+        while(Float.parseFloat(sc.nextLine()) < 0){
+            System.out.println("Introduce un valor positivo");
+            sc = new Scanner(System.in);
+        }
         try{
             monto = Float.parseFloat(sc.nextLine());
         }catch(NumberFormatException e){
@@ -50,21 +54,22 @@ public class EmpresaBancaria {
     }
     
     public void setTasa(){
-        if(monto < 1500000 && meses < 12){
-            tasa = (float)(2.5/100);
-        }
+        if(monto < 1500000){
+            if(meses < 12){
+                tasa = (float)(2.5/100);
+            }else{
+                tasa = (float)(1.8/100);
+            }
+        }else if(monto >= 1500000 && monto <= 3000000){
+            if(meses < 12){
+                tasa = (float)(1.9/100);
+            }else{
+                tasa = (float)(1.7/100);
+            }
+        }else if(monto > 3000000){
+            tasa = tasa = (float)(1.5/100);
+        }    
     }
     
-    public void generarTabla(){
-        System.out.println("Mes\tSaldo\tIntereses\tCuota\tAbono\tSaldoFinal");
-        
-        for(int i = 0; i<meses; i++){
-            float interes = saldo*tasa;
-            float abono = (cuota-interes);
-            float saldoFinal = saldo - abono; 
-            System.out.println((i+1)+"\t"+saldo+"\t"+interes+"\t"+cuota+"\t"
-                    +abono+"\t"+saldoFinal);
-            saldo = saldoFinal;
-        }
-    }
+    
 }
