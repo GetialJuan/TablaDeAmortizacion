@@ -69,7 +69,19 @@ public class EmpresaBancaria {
         }else if(monto > 3000000){
             tasa = tasa = (float)(1.5/100);
         }    
+    } 
+    
+    
+    public void generarTabla(){
+        System.out.println("Mes\tSaldo\tIntereses\tCuota\tAbono\tSaldoFinal");
+        
+        for(int i = 0; i<meses; i++){
+            float interes = saldo*tasa;
+            float abono = (cuota-interes);
+            float saldoFinal = saldo - abono; 
+            System.out.println((i+1)+"\t"+saldo+"\t"+interes+"\t"+cuota+"\t"
+                    +abono+"\t"+saldoFinal);
+            saldo = saldoFinal;
+        }
     }
-    
-    
 }
